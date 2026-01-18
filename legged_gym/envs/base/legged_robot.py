@@ -377,13 +377,15 @@ class LeggedRobot(BaseTask):
             [torch.Tensor]: Torques sent to the simulation
         """
         #pd controller
+        # 把actions进行缩放，action_scale一般小于1（目的：在训练初期能够较稳定的进行训练，加速收敛）
         actions_scaled = actions * self.cfg.control.action_scale
         control_type = self.cfg.control.control_type
-        if control_type=="P":
+        if control_type=="P":   # 位置控制模式（关节的位置表示关节的角度 值）
+            # PD控制公式： t = K_p*(q_d - q) + K_d*(v_d - v), v_d = 0
             torques = self.p_gains*(actions_scaled + self.default_dof_pos - self.dof_pos) - self.d_gains*self.dof_vel
-        elif control_type=="V":
+        elif control_type=="V": # 速度控制模式
             torques = self.p_gains*(actions_scaled - self.dof_vel) - self.d_gains*(self.dof_vel - self.last_dof_vel)/self.sim_params.dt
-        elif control_type=="T":
+        elif control_type=="T": # 扭矩控制模式
             torques = actions_scaled
         else:
             raise NameError(f"Unknown controller type: {control_type}")

@@ -106,7 +106,7 @@ class LeggedRobotCfg(BaseConfig):
         disable_gravity = False
         collapse_fixed_joints = True # merge bodies connected by fixed joints. Specific fixed joints can be kept by adding " <... dont_collapse="true">
         fix_base_link = False # fixe the base of the robot
-        default_dof_drive_mode = 3 # see GymDofDriveModeFlags (0 is none, 1 is pos tgt, 2 is vel tgt, 3 effort)
+        default_dof_drive_mode = 3 # see GymDofDriveModeFlags (0 is none, 1 is pos tgt, 2 is vel tgt, 3 effort) 实际电机控制模式
         self_collisions = 1 # 1 to disable, 0 to enable...bitwise filter
         replace_cylinder_with_capsule = True # replace collision cylinders with capsules, leads to faster/more stable simulation
         flip_visual_attachments = True # Some .obj meshes must be flipped from y-up to z-up
@@ -182,10 +182,10 @@ class LeggedRobotCfg(BaseConfig):
         lookat = [0., 0., 1.2]  # [m]
 
     class sim:
-        dt = 0.033  # 0.005 0.02
-        substeps = 1
-        gravity = [0., 0. ,-9.81]  # [m/s^2]
-        up_axis = 1  # 0 is y, 1 is z
+        dt = 0.033                  # 0.005 0.02 仿真器多长时间计算一次（单位：秒）
+        substeps = 1                # 上面的dt内有几个小步
+        gravity = [0., 0. ,-9.81]   # [m/s^2]
+        up_axis = 1                 # 0 is y, 1 is z
 
         class physx:
             num_threads = 10

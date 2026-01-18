@@ -3,7 +3,7 @@ from legged_gym.envs.base.legged_robot_config import LeggedRobotCfg
 
 class G1Cfg(LeggedRobotCfg):
     class env(LeggedRobotCfg.env):
-        num_actions = 29
+        num_actions = 29    # 自由度
     class init_state(LeggedRobotCfg.init_state):
         pos = [0.0, 0.0, 0.76]  # x,y,z [m]
         # stand_pos_joint_angles
@@ -80,7 +80,7 @@ class G1Cfg(LeggedRobotCfg):
         upper_arm_name = 'shoulder_roll'
         lower_arm_name = 'elbow_pitch'
         # terminate_after_contacts_on = ['pelvis', 'shoulder_roll', 'elbow_pitch', 'knee_pitch']
-        terminate_after_contacts_on = ['pelvis']
+        terminate_after_contacts_on = ['pelvis']    # 骨盆
         flip_visual_attachments = False
         self_collisions = 1  # 1 to disable, 0 to enable...bitwise filter
 
